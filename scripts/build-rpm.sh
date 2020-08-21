@@ -1,12 +1,5 @@
 # #!/bin/bash
 
-# Авторизуемся для получения root прав
-mkdir -p ~root/.ssh
-cp ~vagrant/.ssh/auth* ~root/.ssh
-
-# Устанавливаем необходимые пакеты
-yum install -y redhat-lsb-core wget rpmdevtools rpm-build createrepo yum-utils gcc
-
 # Загрузим SRPM пакет NGINX для дальнейшей работы над ним
 wget https://nginx.org/packages/centos/7/SRPMS/nginx-1.14.1-1.el7_4.ngx.src.rpm
 
@@ -18,14 +11,14 @@ wget https://www.openssl.org/source/latest.tar.gz
 tar -xvf latest.tar.gz
 
 # Поставим все зависимости чтобы в процессе сборки не было ошибок
-yum-builddep rpmbuild/SPECS/nginx.spec
+yum-builddep /root/rpmbuild/SPECS/nginx.spec
 
-# Добавляем в spec файл путь до исходников openssl
-sed 's!with-debug!with-openssl=/home/vagrant/openssl-1.1.1g!' rpmbuild/SPECS/nginx.spec > nginx.spec
-cp nginx.spec rpmbuild/SPECS/nginx.spec
+# Добавляем в spec файл путь до каталога с исходниками openssl
+sed 's!with-debug!with-openssl=/home/vagrant/openssl-1.1.1g!' /root/rpmbuild/SPECS/nginx.spec > nginx.spec
+cp nginx.spec /root/rpmbuild/SPECS/nginx.spec
 
 # Запускаем сборку пакета
-rpmbuild -bb rpmbuild/SPECS/nginx.spec
+rpmbuild -bb /root/rpmbuild/SPECS/nginx.spec
 
-# Установим собранный nginx, который нам понадобится 
-yum localinstall -y rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm
+# Копируем созданные пакеты из папки root созданные пакет
+cp /root/rpmbuild/RPMS/x86_64/nginx-1.14.1-1.el7_4.ngx.x86_64.rpm .

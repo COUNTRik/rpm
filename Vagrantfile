@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
         v.memory = boxconfig[:memory]
         v.cpus = boxconfig[:cpus]
       end
-      box.vm.provision "shell", path: "scripts/rpm.sh"
+      box.vm.provision "shell", path: "scripts/rpm-install.sh"
     end
   end
 end
