@@ -52,23 +52,21 @@
 
 Закоментируем секцию server в /etc/nginx/nginx.conf и создадим конфигурационный файл в /etc/nginx/conf.d/default.conf с нижеописанными настройками
 
-  server {
+  ``server {
 
-    listen 80;
+    ``listen 80;
 
-    server_name localhost;
+    ``server_name localhost;
 
-    location / {
+    ``location / {
 
-    autoindex on;
+    ``autoindex on;
 
-    root /usr/share/nginx/html;
+    ``root /usr/share/nginx/html;
 
-    }
+    ``}
 
-  }
-
-
+  ``}
 
 Проверим синтаксис нового конфигурационного файла и перезапустим nginx
 
