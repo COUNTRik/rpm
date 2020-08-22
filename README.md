@@ -52,23 +52,16 @@
 
 Закоментируем секцию server в /etc/nginx/nginx.conf и создадим конфигурационный файл в /etc/nginx/conf.d/default.conf с нижеописанными настройками
 
+```
 server {
-
-
    listen 80;
-
    server_name localhost;
-
    location / {
-
    autoindex on;
-
    root /usr/share/nginx/html;
-
    }
-
-  }
-
+ }
+```
 Проверим синтаксис нового конфигурационного файла и перезапустим nginx
 
 ``nginx -t``
@@ -76,20 +69,14 @@ server {
 ``nginx -s reload``
 
 По аналогии с локальным репозиторием cоздаем файл localnginx.repo с настройками для локального репозитария
-
+```
   cat >> /etc/yum.repos.d/localnginx.repo << EOF
-
   [localnginx]
-
   name=localnginx
-
   baseurl=http://localhost/rpm
-
   gpgcheck=0
-
   enabled=1
-
   EOF
-
+```
 Выведем список репозиториев
 ``yum repolist``
